@@ -21,4 +21,8 @@ describe ActiveRecordRoutes do
   it 'includes Routing concern on ActiveRecord::Base' do
     expect(ActiveRecord::Base.ancestors).to include(ActiveRecordRoutes::Routing)
   end
+
+  it 'routes' do
+    expect(User.routes).to include :index
+  end
 end
