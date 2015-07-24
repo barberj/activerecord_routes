@@ -5,7 +5,16 @@ describe ActiverecordRoutes do
     expect(ActiverecordRoutes::VERSION).not_to be nil
   end
 
-  it 'does something useful' do
-    expect(false).to eq(true)
+  it 'Specs are hooked up to database' do
+    User.create(email: 'barber.justin@gmail.com')
+
+    expect(User.count).to eq 1
+  end
+
+  it 'can list models' do
+    models = ActiveRecord::Base.subclasses.
+      collect(&:name).sort
+
+    expect(models).to include 'User'
   end
 end
