@@ -5,5 +5,5 @@ require "activerecord_routes/concerns/routing"
 require "grape"
 
 module ActiveRecordRoutes
-  ActiveRecord::Base.include ActiveRecordRoutes::Routing
+  ActiveRecord::Base.send(:include, ActiveRecordRoutes::Routing)
 end
