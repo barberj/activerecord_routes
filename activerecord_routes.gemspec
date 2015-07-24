@@ -5,7 +5,7 @@ require 'activerecord_routes/version'
 
 Gem::Specification.new do |spec|
   spec.name          = "activerecord_routes"
-  spec.version       = ActiverecordRoutes::VERSION
+  spec.version       = ActiveRecordRoutes::VERSION
   spec.authors       = ["Justin Barber"]
   spec.email         = ["barber.justin@gmail.com"]
 

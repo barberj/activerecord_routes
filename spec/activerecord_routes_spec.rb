@@ -1,8 +1,8 @@
 require 'spec_helper'
 
-describe ActiverecordRoutes do
+describe ActiveRecordRoutes do
   it 'has a version number' do
-    expect(ActiverecordRoutes::VERSION).not_to be nil
+    expect(ActiveRecordRoutes::VERSION).not_to be nil
   end
 
   it 'Specs are hooked up to database' do
@@ -16,5 +16,9 @@ describe ActiverecordRoutes do
       collect(&:name).sort
 
     expect(models).to include 'User'
+  end
+
+  it 'includes Routing concern on ActiveRecord::Base' do
+    expect(ActiveRecord::Base.ancestors).to include(ActiveRecordRoutes::Routing)
   end
 end

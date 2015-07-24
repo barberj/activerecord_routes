@@ -1,7 +1,9 @@
 require "activerecord_routes/version"
 require "active_record"
+require "active_support"
+require "activerecord_routes/concerns/routing"
 require "grape"
 
-module ActiverecordRoutes
-  # Your code goes here...
+module ActiveRecordRoutes
+  ActiveRecord::Base.include ActiveRecordRoutes::Routing
 end
