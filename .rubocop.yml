@@ -19,4 +19,3 @@ Style/ClassAndModuleChildren:
 
 Style/AlignParameters:
   EnforcedStyle: with_fixed_indentation
-
