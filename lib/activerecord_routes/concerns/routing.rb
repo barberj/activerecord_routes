@@ -6,7 +6,7 @@ module ActiveRecordRoutes::Routing
       @routes ||= []
     end
 
-    def route_settings(*actions, settings: {})
+    def route_settings(*actions)
       actions.each do |action|
         routes << action
       end
