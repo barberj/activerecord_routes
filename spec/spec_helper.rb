@@ -3,9 +3,9 @@ require 'pry'
 require 'activerecord_routes'
 
 # tells AR what db file to use
- ActiveRecord::Base.establish_connection(
-   :adapter => 'sqlite3',
-   :database => 'activerecord_routes.db'
+ActiveRecord::Base.establish_connection(
+  adapter: 'sqlite3',
+  database: 'activerecord_routes.db'
 )
 
 require 'support/migrations'

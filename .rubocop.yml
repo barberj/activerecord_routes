@@ -1,0 +1,22 @@
+AllCops:
+  Include:
+    - config.ru
+  Exclude:
+    - spec/spec_helper.rb
+    - spec/rails_helper.rb
+    - activerecord_routes.gemspec
+    - bin/*
+
+Style/DotPosition:
+  EnforcedStyle: trailing
+  Enabled: true
+
+Style/Documentation:
+  Enabled: false
+
+Style/ClassAndModuleChildren:
+  EnforcedStyle: compact
+
+Style/AlignParameters:
+  EnforcedStyle: with_fixed_indentation
+
