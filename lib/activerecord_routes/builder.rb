@@ -21,5 +21,7 @@ class ActiveRecordRoutes::Builder
         end
       end
     end
+
+    ActiveRecordRoutes::API.mount new_api
   end
 end
