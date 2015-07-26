@@ -1,3 +1,3 @@
 class User < ActiveRecord::Base
-  route_settings :index, :show, settings: { version: :v2 }
+  route_settings :index, :show
 end

@@ -2,8 +2,7 @@ AllCops:
   Include:
     - config.ru
   Exclude:
-    - spec/spec_helper.rb
-    - spec/rails_helper.rb
+    - spec/*
     - activerecord_routes.gemspec
     - bin/*
 

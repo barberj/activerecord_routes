@@ -6,9 +6,9 @@ module ActiveRecordRoutes::Routing
       @routes ||= []
     end
 
-    def route_settings(*actions, settings: {})
+    def route_settings(*actions)
       routes.concat(actions)
-      ActiveRecordRoutes::Builder.build_api(self, actions, **settings)
+      ActiveRecordRoutes::Builder.build_api(self, actions)
     end
   end
 end
