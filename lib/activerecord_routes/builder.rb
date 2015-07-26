@@ -16,8 +16,8 @@ class ActiveRecordRoutes::Builder
         new_api.params do
           requires :id, desc: "#{klass} id."
         end
-        new_api.get :id do
-          klass.find(id)
+        new_api.get ':id' do
+          klass.find_by(id: params[:id])
         end
       end
     end
