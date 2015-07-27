@@ -2,6 +2,7 @@ $LOAD_PATH.unshift File.expand_path('../../lib', __FILE__)
 require 'pry'
 require 'activerecord_routes'
 require 'rack/test'
+require 'database_cleaner'
 
 # tells AR what db file to use
 ActiveRecord::Base.establish_connection(
@@ -15,8 +16,14 @@ RSpec.configure do |config|
   config.include Rack::Test::Methods
   config.include RackApp
 
+  DatabaseCleaner.strategy = :truncation
+
   config.before(:suite) do
     Migrations.migrate(:up)
+  end
+
+  config.before(:each) do
+    DatabaseCleaner.clean
   end
 
   config.after(:suite) do

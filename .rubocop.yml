@@ -5,6 +5,7 @@ AllCops:
     - spec/*
     - activerecord_routes.gemspec
     - bin/*
+    - config.ru
 
 Style/DotPosition:
   EnforcedStyle: trailing

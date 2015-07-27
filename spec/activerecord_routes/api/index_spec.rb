@@ -2,11 +2,19 @@ require 'spec_helper'
 
 describe ActiveRecordRoutes do
   describe 'index' do
+    context 'without records' do
+      it 'returns empty' do
+        request(:get, '/users', {page: 1})
+        expect(json).to be_empty
+      end
+    end
     context 'with records' do
+      before do
+        User.create(email: 'barber.justin@gmail.com')
+      end
       it 'returns records on page' do
-        response = get('/users', { page: 1 }, {})
-        users = JSON.parse(response.body)
-        expect(users.count).to eq 1
+        request(:get, '/users', {page: 1})
+        expect(json).to be_present
       end
     end
   end
