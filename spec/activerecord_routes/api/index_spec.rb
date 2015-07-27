@@ -12,9 +12,13 @@ describe ActiveRecordRoutes do
       before do
         User.create(email: 'barber.justin@gmail.com')
       end
-      it 'returns records on page' do
+      it 'returns page' do
         request(:get, '/users', {page: 1})
         expect(json).to be_present
+      end
+      it 'returns empty page' do
+        request(:get, '/users', {page: 2})
+        expect(json).to be_empty
       end
     end
   end
