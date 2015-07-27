@@ -1,6 +1,7 @@
 $LOAD_PATH.unshift File.expand_path('../../lib', __FILE__)
 require 'pry'
 require 'activerecord_routes'
+require 'rack/test'
 
 # tells AR what db file to use
 ActiveRecord::Base.establish_connection(
@@ -8,10 +9,12 @@ ActiveRecord::Base.establish_connection(
   database: 'activerecord_routes.db'
 )
 
-require 'support/migrations'
-require 'support/models'
+Dir["./spec/support/**/*.rb"].sort.each { |f| require f}
 
 RSpec.configure do |config|
+  config.include Rack::Test::Methods
+  config.include RackApp
+
   config.before(:suite) do
     Migrations.migrate(:up)
   end
