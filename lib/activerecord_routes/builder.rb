@@ -24,15 +24,23 @@ class ActiveRecordRoutes::Builder
         def query_params
           params.slice(*active_record.column_names).to_h
         end
+
+        def updated_after
+          Time.new(1970, 1, 1, 0, 0, 0, 0)
+        end
+
+        def created_after
+          Time.new(1970, 1, 1, 0, 0, 0, 0)
+        end
       end
 
       resource klass.to_s.downcase.pluralize do
         if actions.include?(:index)
           get do
             paginate(
-              klass.where(
-                query_params
-              )
+              klass.where(query_params).
+              where('created_at > ?', created_after).
+              where('updated_at > ?', updated_after)
             )
           end
         end
