@@ -3,6 +3,7 @@ require 'active_record'
 require 'active_support'
 require 'activerecord_routes/concerns/routing'
 require 'grape'
+require 'grape-kaminari'
 
 module ActiveRecordRoutes
   autoload :Builder, 'activerecord_routes/builder'
