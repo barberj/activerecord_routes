@@ -9,12 +9,16 @@ class ActiveRecordRoutes::Builder
       include Grape::Kaminari
 
       def self.active_record
-        name.chomp("API").constantize
+        name.chomp('API').constantize
       end
 
       format :json
 
-      paginate per_page: default_page_size, max_per_page: max_page_size, offset: false
+      paginate(
+        per_page: default_page_size,
+        max_per_page: max_page_size,
+        offset: false
+      )
 
       helpers do
         def active_record
@@ -22,7 +26,9 @@ class ActiveRecordRoutes::Builder
         end
 
         def query_params
-          params.slice(*active_record.column_names).to_h
+          params.
+            slice(*active_record.column_names - %w(created_at updated_at)).
+            to_h
         end
 
         def updated_after
@@ -34,7 +40,7 @@ class ActiveRecordRoutes::Builder
         end
       end
 
-      resource klass.to_s.downcase.pluralize do
+      resource klass.name.downcase.pluralize do
         if actions.include?(:index)
           get do
             paginate(
