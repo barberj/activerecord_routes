@@ -8,14 +8,32 @@ class ActiveRecordRoutes::Builder
     new_api.class_eval do
       include Grape::Kaminari
 
+      def self.active_record
+        name.chomp("API").constantize
+      end
+
       format :json
 
       paginate per_page: default_page_size, max_per_page: max_page_size, offset: false
 
+      helpers do
+        def active_record
+          options[:for].active_record
+        end
+
+        def query_params
+          params.slice(*active_record.column_names).to_h
+        end
+      end
+
       resource klass.to_s.downcase.pluralize do
         if actions.include?(:index)
           get do
-            paginate(klass)
+            paginate(
+              klass.where(
+                query_params
+              )
+            )
           end
         end
 

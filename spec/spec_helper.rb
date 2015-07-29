@@ -3,6 +3,7 @@ require 'pry'
 require 'activerecord_routes'
 require 'rack/test'
 require 'database_cleaner'
+require 'faker'
 
 # tells AR what db file to use
 ActiveRecord::Base.establish_connection(
