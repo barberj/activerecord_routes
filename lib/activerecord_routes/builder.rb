@@ -22,7 +22,11 @@ class ActiveRecordRoutes::Builder
 
       helpers do
         def active_record
-          options[:for].active_record
+          api_class.active_record
+        end
+
+        def api_class
+          options[:for]
         end
 
         def query_params
@@ -31,12 +35,21 @@ class ActiveRecordRoutes::Builder
             to_h
         end
 
+        def filter_since(time_after)
+          Time.parse(params.
+            fetch(time_after,
+              Time.new(1970, 1, 1, 0, 0, 0, 0).
+                strftime('%FT%TZ')
+            )
+          )
+        end
+
         def updated_after
-          Time.new(1970, 1, 1, 0, 0, 0, 0)
+          filter_since('updated_after')
         end
 
         def created_after
-          Time.new(1970, 1, 1, 0, 0, 0, 0)
+          filter_since('created_after')
         end
       end
 

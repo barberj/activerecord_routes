@@ -28,16 +28,20 @@ describe ActiveRecordRoutes do
           request(:get, '/users', {id: ids})
           expect(json).to be_present
         end
-        it 'filters records by id' do
-          ids.pop
-          ids << User.last.id + 100
-          request(:get, '/users', {id: ids})
-          expect(json.size).to eq(2)
-        end
-        it 'filters all records' do
-          ids = [User.last.id + 100]
-          request(:get, '/users', {id: ids})
-          expect(json).to be_empty
+        context 'filters' do
+          it 'by id' do
+            ids.pop
+            ids << User.last.id + 100
+            request(:get, '/users', {id: ids})
+            expect(json.size).to eq(2)
+          end
+          it 'everything' do
+            ids = [User.last.id + 100]
+            request(:get, '/users', {id: ids})
+            expect(json).to be_empty
+          end
+          it 'by created_after'
+          it 'by updated_after'
         end
       end
     end
