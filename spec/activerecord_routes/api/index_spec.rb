@@ -1,7 +1,7 @@
 require 'spec_helper'
 
 describe ActiveRecordRoutes do
-  describe 'index' do
+  describe 'index request against ActiveRecord' do
     context 'without records' do
       it 'returns empty' do
         request(:get, '/users', {page: 1})
@@ -15,28 +15,30 @@ describe ActiveRecordRoutes do
         end
       end
       let(:ids) { User.all.map(&:id) }
-      it 'returns page' do
-        request(:get, '/users', {page: 1})
-        expect(json).to be_present
-      end
-      it 'returns page when query has matches' do
-        request(:get, '/users', {id: ids})
-        expect(json).to be_present
-      end
-      it 'returns matching' do
-        ids.pop
-        ids << User.last.id + 100
-        request(:get, '/users', {id: ids})
-        expect(json.size).to eq(2)
-      end
-      it 'returns empty page' do
-        request(:get, '/users', {page: 2})
-        expect(json).to be_empty
-      end
-      it 'returns empty when query has no matches' do
-        ids = [User.last.id + 100]
-        request(:get, '/users', {id: ids})
-        expect(json).to be_empty
+      context 'with query_params' do
+        it 'returns records on page' do
+          request(:get, '/users', {page: 1})
+          expect(json).to be_present
+        end
+        it 'returns empty when page exceeds record count' do
+          request(:get, '/users', {page: 2})
+          expect(json).to be_empty
+        end
+        it 'returns matching records' do
+          request(:get, '/users', {id: ids})
+          expect(json).to be_present
+        end
+        it 'filters records by id' do
+          ids.pop
+          ids << User.last.id + 100
+          request(:get, '/users', {id: ids})
+          expect(json.size).to eq(2)
+        end
+        it 'filters all records' do
+          ids = [User.last.id + 100]
+          request(:get, '/users', {id: ids})
+          expect(json).to be_empty
+        end
       end
     end
   end
