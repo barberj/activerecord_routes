@@ -40,8 +40,28 @@ describe ActiveRecordRoutes do
             request(:get, '/users', {id: ids})
             expect(json).to be_empty
           end
-          it 'by created_after'
-          it 'by updated_after'
+          it 'by created_after' do
+            request(:get, '/users',
+              {created_after: 1.year.from_now.strftime('%FT%TZ')}
+            )
+            expect(json).to be_empty
+
+            request(:get, '/users',
+              {created_after: 1.year.ago.strftime('%FT%TZ')}
+            )
+            expect(json).to be_present
+          end
+          it 'by updated_after' do
+            request(:get, '/users',
+              {updated_after: 1.year.from_now.strftime('%FT%TZ')}
+            )
+            expect(json).to be_empty
+
+            request(:get, '/users',
+              {updated_after: 1.year.ago.strftime('%FT%TZ')}
+            )
+            expect(json).to be_present
+          end
         end
       end
     end

@@ -36,8 +36,9 @@ class ActiveRecordRoutes::Builder
         end
 
         def filter_since(time_after)
-          Time.parse(params.
-            fetch(time_after,
+          Time.parse(
+            params.fetch(
+              time_after,
               Time.new(1970, 1, 1, 0, 0, 0, 0).
                 strftime('%FT%TZ')
             )
