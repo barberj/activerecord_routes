@@ -1,7 +1,7 @@
 require 'spec_helper'
 
 describe ActiveRecordRoutes do
-  describe 'index request against ActiveRecord' do
+  describe 'index request against Model' do
     context 'without records' do
       it 'returns empty' do
         request(:get, '/users', {page: 1})
@@ -15,6 +15,10 @@ describe ActiveRecordRoutes do
         end
       end
       let(:ids) { User.all.map(&:id) }
+      it 'returns ok status' do
+        request(:get, '/users')
+        expect(response.status).to eq(200)
+      end
       context 'with query_params' do
         it 'returns records on page' do
           request(:get, '/users', {page: 1})
