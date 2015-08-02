@@ -88,7 +88,7 @@ class ActiveRecordRoutes::Builder
           end
 
           delete do
-            klass.where(query_params)
+            klass.where(query_params).destroy_all
           end
         end
       end
