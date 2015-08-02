@@ -54,6 +54,11 @@ class ActiveRecordRoutes::Builder
         end
       end
 
+      rescue_from ActiveRecord::RecordNotFound do |e|
+        message = e.message.scan(/Couldn't find \w+/).first
+        error!(message, 404)
+      end
+
       resource klass.name.downcase.pluralize do
         if actions.include?(:index)
           get do
@@ -73,9 +78,22 @@ class ActiveRecordRoutes::Builder
             klass.find_by(id: params[:id])
           end
         end
+
+        if actions.include?(:destroy)
+          params do
+            requires :id, desc: "#{klass} id."
+          end
+          delete ':id' do
+            klass.find(params[:id]).destroy
+          end
+
+          delete do
+            klass.where(query_params)
+          end
+        end
       end
     end
 
-    ActiveRecordRoutes::API.mount new_api
+    ActiveRecordRoutes::API.mount(new_api)
   end
 end
