@@ -75,7 +75,7 @@ class ActiveRecordRoutes::Builder
             requires :id, desc: "#{klass} id."
           end
           get ':id' do
-            klass.find_by(id: params[:id])
+            klass.find(params[:id])
           end
         end
 
