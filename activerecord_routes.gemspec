@@ -28,6 +28,7 @@ Gem::Specification.new do |spec|
   spec.add_development_dependency 'rubocop'
   spec.add_development_dependency 'database_cleaner'
   spec.add_development_dependency 'faker'
+  spec.add_development_dependency 'temping'
 
   spec.add_runtime_dependency 'activerecord', '~> 4.2'
   spec.add_runtime_dependency 'grape', '~> 0.12'
