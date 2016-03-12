@@ -1,3 +1,3 @@
 class User < ActiveRecord::Base
-  route_settings :index, :show, :destroy
+  route_settings :index, :show, :destroy, :create
 end

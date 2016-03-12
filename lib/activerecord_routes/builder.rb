@@ -35,6 +35,11 @@ class ActiveRecordRoutes::Builder
             to_h
         end
 
+        #klass.name.downcase.pluralize
+        def models_to_create
+          params.fetch(
+        end
+
         def filter_since(time_after)
           Time.parse(
             params.fetch(
@@ -64,8 +69,8 @@ class ActiveRecordRoutes::Builder
           get do
             paginate(
               klass.where(query_params).
-              where('created_at > ?', created_after).
-              where('updated_at > ?', updated_after)
+                where('created_at > ?', created_after).
+                where('updated_at > ?', updated_after)
             )
           end
         end
@@ -89,6 +94,13 @@ class ActiveRecordRoutes::Builder
 
           delete do
             klass.where(query_params).destroy_all
+          end
+        end
+
+        if actions.include?(:create)
+          post do
+            binding.pry
+            klass.create!(params)
           end
         end
       end
